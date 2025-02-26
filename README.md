@@ -87,6 +87,7 @@ IoT 개발자 데이터베이스 저장소
         +--------------------+
         4 rows in set (0.02 sec)
         ```
+<img src='./image/db001.png' width='700'>
 
 - Workbench 설치
     - https://dev.mysql.com/downloads/workbench/ MySQL Workbench 8.0.41
