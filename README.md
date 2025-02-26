@@ -147,6 +147,45 @@ IoT 개발자 데이터베이스 저장소
     WHERE bookname LIKE '축구의 역사'; -- 주석입니다
     ```
 
+- 실행파일(exe) 만들어지면 컴파일러
+- 코드파일에서 바로 실행하면 인터프리터(내부적으로 컴파일은 수행)
+
 ## 2일차
 - SQL 기초
-    - ...
+    - 개요
+        - 데이터베이스에 있는 데이터를 추출 및 처리 작업을 위해서 사용되는 프로그래밍 언어
+        - 일반프로그래밍 언어와 차이점
+            - DB에서만 문제해결 가능
+            - 입출력을 모두 DB에서 테이블로 처리
+            - 컴파일 및 실행은 DBMS가 수행
+
+        - DML(데이터 조작어) - 검색, 삽입, 수정, 삭제
+            - SELECT, INSERT, UPDATE, DELETE
+        - DDL(데이터 정의어)
+            - CREATE, ALTER, DROP
+        - DCL(데이터 제어어)
+            - GRANT, REVOKE
+
+    - DML 중 SELECT
+        - 이름, 조건, 속성 모두 여러 개 쓸 수 있음
+        ```sql
+        -- SELECT문 기본문법
+        SELECT [ALL|DISTINCT] 컬럼명
+          FROM 테이블명
+        [WHERE 검색조건]
+        [GROUP BY 속성명]
+        [HAVING 집계함수 검색 조건]
+        [ORDER BY 정렬할 속성 [ASC|DESC]]
+        [WITH ROLLUP] 
+        ```
+
+        - 퀴리 연습(정렬까지): [SQL](./day02/db02_select_query_practice.sql)
+        - 쿼리 연습(집계함수부터) : [SQL](./day02/db03_select_aggregate_~.sql)
+
+## 3일차
+- SQL 기초
+    - DDL
+    - DML 중 INSERT, UPDATE, DELETE
+
+- SQL 고급
+    
