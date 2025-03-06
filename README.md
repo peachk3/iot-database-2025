@@ -47,21 +47,27 @@ IoT 개발자 데이터베이스 저장소
         ```shell
         > docker run --name mysql-container -e MYSQL_ROOT_PASSWORD=12345 -d -p 3306:3306 mysql:latest
         ```
+        
+        - 컴퓨터 재시작 후 컨테이너 자동시작 옵션 명령어
+        ```shell
+        > docker update --restart=always mysql-container
+        ```
+
     5. 컨테이너 확인
-        ``` shell
+        ```shell
         > docker ps -a
         CONTAINER ID   IMAGE          COMMAND                   CREATED          STATUS          PORTS
         NAMES
         73c7b1918350   mysql:latest   "docker-entrypoint.s…"   21 seconds ago   Up 20 seconds   0.0.0.0:3306->3306/tcp, 33060/tcp   mysql-container
         ```
     6. Docker 컨테이너 시작, 중지 재시작
-        ``` shell
+        ```shell
         > docker stop mysql-container # 중지
         > docker start mysql-container # 시작
         > docker restart mysql-container # 재시작
         ```
     7. MySQL Docker 컨테이너 접속
-        ``` shell
+        ```shell
         > docker exec -it mysql-container bash # bash 리눅스의 powershell
         Enter password:
         Welcome to the MySQL monitor.  Commands end with ; or \g.
@@ -362,12 +368,43 @@ IoT 개발자 데이터베이스 저장소
     - 현재 ER다이어그램은 IE(Information Engeenering) 방식으로 설계
     - ERWin 설계 실습 : [ERWin](./day05/madangstore.erwin)
 
-## 6일차
-- 데이터 모델링 계속
-    - 마당대학 데이터베이스
-- 정규화
-- 트랜잭션
-- 데이터베이스 관리와 보안
-- 실무실습
+## 6 일차
+- 데이터모델링 계속 : [SQL](./day06/마당대학교_스키마.sql)
+    - 마당대학(madangUni) 데이터베이스 with Workbench : db_01_마당대학.mwb(MySQL Workbench Model)
+    - Forward Engineering 으로 DB 생성 확인
 
-- Python GUI로 DB연동 앱 개발
+- 정규화 : [SQL](./day06/db03_정규화_이상현상.sql)
+    - 이상현상 - 삽입이상, 삭제이상, 수정이상 [SQL](./day06/db03_정규화_이상현상.sql)
+        - 정규화를 제대로 못한 DB면 발생 가능
+
+    - 함수 종속성 - 하나의 속성이(A) 다른 속성(B)을 결정지으면 A는 B의 결정자. A → B
+        - 완전함수종속 - 종속성에 일치하지 않는 속성들이 하나도 없는 경우 
+        - 이행적종속 - A → B, B → C 일 때 A → C 가 되는 종속성 
+        - BCNF 해당하지 않는 경우 -  A → C,  B → C일 경우  C → B 경우가 발생
+
+    - 정규화 - 이상현상이 발생하지 않도록 릴레이션 (개체, 테이블)을 분해하는 과정 
+        - 제 1 정규화 - 속성이 원자값을 가지도록 만드는 정규화( 한 컬럼에 여러값이 들어갈 수 없다)
+        - 제 2 정규화 - 모든 릴레이션의 속성이 완전함수종속을 하는 정규화
+        - 제 3 정규화 - 이행적 종속이 발생하지 않도록 정규화
+        - BCNF 정규화 - 함수종속성 A → B 가 성립시, 모든 결정자 A가 후보키가 되는 정규화
+        - 제 4 정규화 - 다치종속성 릴레이션을 가진 정규화(실무에서 사용하지 않음)
+        - 제 5 정규화 - 프로젝트 - 조인 정규형. 조인 종속성을 가진 릴레이션.(실무에서 사용하지 않음)
+
+- 트랜잭션 : [SQL](/day06/db04_트랜잭션.sql) / [SQL](/day06/db05_트랜잭션2.sql)
+    -  데이터를 다루는 논리적인 작업단위
+    - START TRANSACTION, SAVEPOINT, ROLLBACK[ TO SAVEPOINT ], COMMIT 트랜잭션 처리
+    - 특징
+        - A - 원자성
+        - B - 일관성
+        - I - 고립성
+        - D - 지속성
+
+    - 동시성 제어 : [SQL](./day06/db09_동시성제어1.sql) / [SQL2](./day06/db09_동시성제어2.sql)
+        - 락
+
+
+## 7일차 
+- 데이터베이스 관리와 보안
+- 실무 실습
+
+- Python GUI DB 연동으로 앱 개발
